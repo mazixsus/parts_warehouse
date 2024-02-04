@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  backend:
+      container_name: parts_warehouse
+      command: web_dev
+      image: parts_warehouse
+      restart: on-failure
+      build: 
+        context: ./
+      env_file:
+        - ./.env
+      volumes:
+        - ./src/:/src/
+        - ./poetry/:/poetry/
+      ports:
+        - 8800:8000
+      # depends_on:
+      #     postgres:
+      #       condition: service_healthy
+      # networks:
+      #   - startups_network
