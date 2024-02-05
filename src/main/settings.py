@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from pymongo import MongoClient
+import mongoengine
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,10 +42,12 @@ DJANGO_APPS = [
 
 THIDR_PARTY_APPS = [
     "rest_framework",
+    "rest_framework_mongoengine",
 ]
 
 LOCAL_APPS = [
     'parts',
+    'categories',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIDR_PARTY_APPS + LOCAL_APPS
@@ -84,13 +86,7 @@ WSGI_APPLICATION = 'main.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
+mongoengine.connect(host='mongodb+srv://mateusz3249:QqFxpZnE7EVUrIYS@cluster0.9bzxoqf.mongodb.net/mateusz_mazurek?retryWrites=true&w=majority')
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

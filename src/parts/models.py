@@ -1,5 +1,5 @@
-from django.db import models
-from hashid_field import HashidAutoField
+from mongoengine import Document, EmbeddedDocument, fields
+from categories.models import Category
 
 LOCATION_OPTION = [
     ("room", "Room"),
@@ -10,16 +10,12 @@ LOCATION_OPTION = [
     ("row", "Row"),
 ]
 
-# Create your models here.
-class Parts(models.Model):
-    id = HashidAutoField(primary_key=True, on_delete=models.CASCADE)
-    serial_number = models.CharField(max_length=20, unique=True)
-    name = models.CharField(max_length=20)
-    description = models.CharField(max_length=255)
-    category = models.CharField(max_length=20)
-    quantity = models.IntegerField()
-    price= models.FloatField(decimal_places=2)
-    location=models.ArrayField(
-        models.CharField(max_length=20, choices=PROFIT_OPTIONS),
-        size=len(PROFIT_OPTIONS),
-    )
+class Parts(Document):
+    serial_number = fields.StringField(required=True, reqmax_length=20, unique=True)
+    name = fields.StringField(required=True, max_length=20, unique=True)
+    description = fields.StringField(required=True, max_length=255)
+    category = fields.StringField(required=True)
+    category_reference = fields.ReferenceField(Category, required=True)
+    quantity = fields.IntField(required=True)
+    price= fields.DecimalField(required=True, decimal_places=2)
+    location_option = fields.ListField(field=fields.StringField(choices=LOCATION_OPTION), required=True)
