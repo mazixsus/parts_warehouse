@@ -6,4 +6,8 @@ from .models import Category
 
 class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategoriesSerializer
-    queryset = Category.objects.all()
+    lookup_field = 'name'
+    
+    # queryset = Category.objects.all()
+    def get_queryset(self):
+        return Category.objects.all()

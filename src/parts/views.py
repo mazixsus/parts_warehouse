@@ -7,3 +7,5 @@ from .models import Parts
 class PartsViewSet(viewsets.ModelViewSet):
     serializer_class = PartsSerializer
     queryset = Parts.objects.all()
+
+    
