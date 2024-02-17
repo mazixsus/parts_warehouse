@@ -15,8 +15,3 @@ services:
         - ./poetry/:/poetry/
       ports:
         - 8800:8000
-      # depends_on:
-      #     postgres:
-      #       condition: service_healthy
-      # networks:
-      #   - startups_network

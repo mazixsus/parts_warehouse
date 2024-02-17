@@ -14,6 +14,7 @@ pymongo = {extras = ["srv", "tls"], version = "^4.6.1"}
 dnspython = "^2.5.0"
 django-rest-framework-mongoengine = "^3.4.1"
 mongoengine = "^0.27.0"
+django-environ = "^0.11.2"
 
 
 [tool.poetry.group.dev.dependencies]

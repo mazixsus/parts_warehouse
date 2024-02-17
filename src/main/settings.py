@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import mongoengine
+import environ
+
+env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-p*asa@r@2rz#9nwjonah23w&j8eiz*q1szcd8!oi^%1m0k1m(n'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -86,7 +89,16 @@ WSGI_APPLICATION = 'main.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-mongoengine.connect(host='mongodb+srv://mateusz3249:QqFxpZnE7EVUrIYS@cluster0.9bzxoqf.mongodb.net/mateusz_mazurek?retryWrites=true&w=majority')
+# mongoengine.connect(host='mongodb+srv://mateusz3249:QqFxpZnE7EVUrIYS@cluster0.9bzxoqf.mongodb.net/mateusz_mazurek?retryWrites=true&w=majority')
+mongoengine.connect(host=env('MONGODB_CONNECTION_STRING'))
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3', # This is where you put the name of the db file. 
+                 # If one doesn't exist, it will be created at migration time.
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

@@ -11,7 +11,7 @@ LOCATION_OPTION = [
 ]
 
 class Parts(Document):
-    serial_number = fields.StringField(required=True, unique=True, primary_key=True, max_length=20)
+    serial_number = fields.StringField(required=True, primary_key=True, max_length=20)
     name = fields.StringField(required=True, max_length=20)
     description = fields.StringField(required=True, max_length=255)
     category = fields.ReferenceField(Category, required=True)
