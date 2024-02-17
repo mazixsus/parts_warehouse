@@ -1,14 +1,13 @@
 from mongoengine import Document, EmbeddedDocument, fields
 from categories.models import Category
 
-LOCATION_OPTION = [
-    ("room", "Room"),
-    ("bookcase", "Bookcase"),
-    ("shelf", "Self"),
-    ("cuvette", "Cuvette"),
-    ("column", "Column"),
-    ("row", "Row"),
-]
+class Location(EmbeddedDocument):
+    room = fields.StringField(max_length=30, required=True)
+    bookcase = fields.StringField(max_length=30)
+    shelf = fields.StringField(max_length=10)
+    cuvette = fields.StringField(max_length=10)
+    column = fields.StringField(max_length=10)
+    row = fields.StringField(max_length=10)
 
 class Parts(Document):
     serial_number = fields.StringField(required=True, primary_key=True, max_length=20)
@@ -17,4 +16,4 @@ class Parts(Document):
     category = fields.ReferenceField(Category, required=True)
     quantity = fields.IntField(required=True)
     price= fields.DecimalField(required=True, decimal_places=2)
-    location_option = fields.ListField(field=fields.StringField(choices=LOCATION_OPTION), required=True)
+    location_option = fields.EmbeddedDocumentField(Location, required=True)
